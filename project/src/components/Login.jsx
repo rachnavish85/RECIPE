@@ -1,7 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import React from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import Swal from 'sweetalert2';
+import useUserContext from '../UserContext';
+import { useNavigate, Link } from 'react-router-dom';
 const LoginSchema = Yup.object().shape({
   email: Yup.string().required("required"),
   password: Yup.string().required("required"),
@@ -10,16 +12,60 @@ const LoginSchema = Yup.object().shape({
 
 
 const Login = () => {
-  const loginForm = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
-    validationSchema: LoginSchema,
-  });
+  const navigate = useNavigate();
+
+
+  const { setLoggedIn } = useUserContext();
+
+  //initialization formik
+  const loginForm = useFormik(
+    {
+      initialValues: {
+        email: '',
+        password: ''
+      },
+      onSubmit: async (values, action) => {
+        console.log(values);
+
+        const res = await fetch('http://localhost:5000/user/authenticate', {
+          method: 'POST',
+          body: JSON.stringify(values),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log(res.status);
+        action.resetForm();
+
+        if (res.status === 200) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Success',
+          });
+          navigate('/home');
+
+          const data = await res.json();
+          sessionStorage.setItem('user', JSON.stringify(data));
+          setLoggedIn(true);
+
+        }
+        else if (res.status === 401) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: 'Email Nd Password is inCorrect'
+          });
+        }
+        else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Something Went Wrong'
+          });
+        }
+
+      },
+      validationSchema: LoginSchema
+    });
 
 
   return (
@@ -106,11 +152,11 @@ const Login = () => {
                 </div>
                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                  <h1 className='welcome'>Welcome</h1>
+                    <h1 className='welcome'>Welcome</h1>
                     <h1 className='to'> to</h1>
                     <h1 className='khana'> Khana </h1>
                     <h1 className='khajana'> Khajana...</h1>
-                  
+
                   </div>
                 </div>
               </div>

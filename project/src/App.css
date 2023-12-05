@@ -1,8 +1,8 @@
  /*header  */
 
  .navbar {
-     background-color: bisque;
-     height: 90px;
+     background-color: maroon;
+     height: 70px;
  }
 
  .logo {
@@ -482,7 +482,7 @@ margin-top: -4%;
 
  @media (min-width: 768px) {
      .gradient-form {
-         height: 110vh !important;
+         height: 140vh !important;
      }
  }
 

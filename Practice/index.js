@@ -15,6 +15,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/user',UserRouter)
 app.use('/contact',ContactRouter)
+app.use('/recipe',RecipeRouter)
 app.use('/util',UtilRouter)
 
 app.use(express.static('./uploads'));

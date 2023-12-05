@@ -1,122 +1,169 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useFormik } from 'formik'
+import Swal from 'sweetalert2'
+import * as Yup from 'yup'
+import { useNavigate } from 'react-router-dom'
 
+const SignupSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().min(4, 'Too short!').max(20, 'Too Long!').required('Required'),
+})
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().required("required"),
-  password: Yup.string().required("required"),
-  password1: Yup.string().required("required")
-});
 const Signup = () => {
 
-  const loginForm = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      password1: "",
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
-    validationSchema: LoginSchema,
-  });
-  return (
-    <div>
+  const navigate = useNavigate();
 
-      <section className="login-wrapper p-5">
-        <div className="container-xxl">
-          <div className="row justify-content-center">
-            <div className="col-lg-4 col-md-8 col-sm-10">
-              <div className="card">
-                <div className="card-body p-5">
-                  <h2 className="text-center price">Sign Up</h2>
-                  <p className="text-center mb-3 price">Join us in shopping!!</p>
-                  <form onSubmit={loginForm.handleSubmit}
-                    action="#"
-                    method="post">
-                    <div className="mb-3">
-                      <label htmlFor="email" className="form-label mb-3">
-                        Enter Your Email address
+  const SignupForm = useFormik({
+    initialValues: {
+      fname: '',
+      lname: '',
+      email: '',
+      password: '',
+      createdAt: new Date()
+    },
+    onSubmit: async (values, action) => {
+
+      console.log(values);
+
+      const res = await fetch('http://localhost:5000/user/add', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+
+      });
+      console.log(res.status)
+      action.resetForm();
+
+      if (res.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Signup Success',
+          text: 'You have been successfully signed up!',
+        })
+        navigate('/login');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+
+      }
+    },
+    validationSchema: SignupSchema,
+  });
+
+  return (
+    <>
+      {/* Section: Design Block */}
+      <section className="text-center text-lg-start bg-tertiary">
+        <style
+          dangerouslySetInnerHTML={{
+            __html:
+              "\n    .cascading-right {\n      margin-right: -50px;\n    }\n\n    @media (max-width: 991.98px) {\n      .cascading-right {\n        margin-right: 0;\n      }\n    }\n  "
+          }}
+        />
+        {/* Jumbotron */}
+        <div className="container py-4">
+          <div className="row g-0 align-items-center">
+            <div className="col-lg-6 mb-5 mb-lg-0">
+              <div
+                className="card cascading-right"
+                style={{
+                  background: "hsla(0, 0%, 100%, 0.55)",
+                  backdropFilter: "blur(30px)"
+                }}
+              >
+                <div className="card-body p-5 shadow-5 text-center">
+                  <h2 className="fw-bold mb-5">Sign Up Now</h2>
+                  <form onSubmit={SignupForm.handleSubmit}>
+                    {/* 2 column grid layout with text inputs for the first and last names */}
+                    <div className="row">
+                      <div className="col-md-6 mb-4">
+                        <div className="form-outline">
+                          <label className="form-label fw-bold" htmlFor="form3Example1">
+                            First name
+                          </label>
+                          <input
+                            type="text"
+                            id="fname"
+                            onChange={SignupForm.handleChange}
+                            value={SignupForm.values.fname}
+                            className="form-control"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6 mb-4">
+                        <div className="form-outline">
+                          <label className="form-label fw-bold" htmlFor="form3Example2">
+                            Last name
+                          </label>
+                          <input
+                            type="text"
+                            id="lname"
+                            onChange={SignupForm.handleChange}
+                            value={SignupForm.values.lname}
+                            className="form-control"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    {/* Email input */}
+                    <div className="form-outline mb-4">
+                      <label className="form-label fw-bold" htmlFor="form3Example3">
+                        Email address
                       </label>
-                      <span
-                        style={{ color: "red", fontsize: 10, marginLeft: 10 }}
-                      >
-                        {loginForm.touched.email && loginForm.errors.email}
-                      </span>
                       <input
                         type="email"
-                        className="form-control"
                         id="email"
-                        placeholder="enter email here ..."
-                        onChange={loginForm.handleChange}
-                        value={loginForm.values.email}
+                        onChange={SignupForm.handleChange}
+                        value={SignupForm.values.email}
+                        className="form-control"
                       />
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="password" className="form-label mb-3">
-                        Enter Your password
+                    {/* Password input */}
+                    <div className="form-outline mb-4 fw-bold">
+                      <label className="form-label" htmlFor="form3Example4">
+                        Password
                       </label>
-                      <span
-                        style={{ color: "red", fontsize: 10, marginLeft: 10 }}
-                      >
-                        {loginForm.touched.password &&
-                          loginForm.errors.password}
-                      </span>
                       <input
                         type="password"
-                        className="form-control"
                         id="password"
-                        placeholder="enter password here..."
-                        onChange={loginForm.handleChange}
-                        value={loginForm.values.password}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label
-                        htmlFor="confirmPassword"
-                        className="form-label mb-3"
-                      >
-                        Confirm Your password
-                      </label>
-
-                      <span
-                        style={{ color: "red", fontsize: 10, marginLeft: 10 }}
-                      >
-                        {loginForm.touched.password1 &&
-                          loginForm.errors.password1}
-                      </span>
-
-                      <input
-                        type="password"
+                        onChange={SignupForm.handleChange}
+                        value={SignupForm.values.password}
                         className="form-control"
-                        id="password1"
-                        placeholder="rewrite password here..."
-                        onChange={loginForm.handleChange}
-                        value={loginForm.values.password1}
                       />
                     </div>
+                    {/* Checkbox */}
 
-                    <div className="d-flex justify-content-between align-items-center mb-3">
-                      <p>
-                        Have an account?
-                      </p>
-                      <Link to="/login" className="form-link">
-                        Log In
-                      </Link>
-                    </div>
-                    <div className="d-grid gap-2">
-                      <button type="submit">Sign Up</button>
-                    </div>
+                    {/* Submit button */}
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-block mb-4"
+                    >
+                      Sign up
+                    </button>
+
                   </form>
                 </div>
               </div>
             </div>
+            <div className="col-lg-6 mb-5 mb-lg-0">
+              <img
+                src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"
+                className="w-100 rounded-4 shadow-4"
+                alt=""
+              />
+            </div>
           </div>
         </div>
+        {/* Jumbotron */}
       </section>
-    </div>
+      {/* Section: Design Block */}
+    </>
+
   )
 }
 

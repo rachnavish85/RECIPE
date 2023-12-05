@@ -1,64 +1,75 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Browse = () => {
-    const [product, setProduct] = useState([]);
 
-    //   const { category } = useParams();
+  const navigate = useNavigate();
 
-    const fetchProduct = async () => {
-        const res = await fetch("http://localhost:5000/product/getall");
+    const [recipeList, setrecipeList] = useState([]);
+    const [masterList, setMasterList] = useState([]);
 
-        console.log(res.status);
-
-        const data = await res.json();
-        console.log(data);
-        if (res.status === 200) {
-            // const data = await res.json();
-            console.log(data);
-            setProduct(data)
-        }
-    };
+    const fetchUserData = async () => {
+      const res = await fetch('http://localhost:5000/recipe/getall');
+      console.log(res.status);
+      if(res.status === 200){
+          const data = await res.json();
+          console.log(data);
+          setrecipeList(data);
+          setMasterList(data);
+      }
+  };
 
     useEffect(() => {
-        fetchProduct();
+     fetchUserData();
     }, []);
 
-    const displayProduct = () => {
-        return product.map((obj) => (
-            <div className="conatainer">
-                <div className="col-md-4">
-                    <div className="card p-3 mb-5 bg-dark p-card">
-                        <h3 style={{ paddingLeft: "20px" }} className="mt-3 text-light">{obj.pname}</h3>
-                        <p style={{ paddingLeft: "20px" }} className="text-light">{obj.pprice}</p>
-                        {/* <Link to={'/view/' + service._id} className="btn btn-outline-primary m-2">Know More</Link> */}
-
-
-                    </div>
-                </div>
-            </div>
-        ));
+    const filterRecipe = (e) => {
+      const value=e.target.value;
+      setrecipeList(masterList.filter((recipe) => {return (recipe.title.toLowerCase().includes(value.toLowerCase()) || recipe.category.toLowerCase().includes(value.toLowerCase()))}));
     }
 
-    return (
-        <div className=''>
-            <header className='bg-body-tertiory'>
-                <div className='container py-5'>
+    const displayRecipeData = () => {
+      if(recipeList.length===0){
+          return <h1 className='text-center fw-bold' style={{color : "seagreen"}}>No Data Found</h1>
+      }
+  
+      return recipeList.map((recipe) => (
+          <div className='col-md-3 mb-4'>
+              <div className="card">
+                    <img src={'http://localhost:5000/'+recipe.image} alt="" className="card-img-top img-fluid" style={{objectFit : "cover", height: 250}}/>
 
-                    <p className='display-2 text-center mb-5 fw-bold'>All Products</p>
+                  <div className="card-footer">
+                      <h4>{recipe.title}</h4>
+                      <p>{recipe.category}</p>
+                      <button className='btn btn-dark mb-2 me-1 px-3' onClick={ () => { navigate('/ShowRecipe/'+recipe._id) }}>Click to View</button>
+                  </div>
+              </div>
+          </div>
+      ))
+    }
 
-                    <input type="text" placeholder='Search Items' className='form-control w-75 m-auto'  />
+  return (
+    <div style={{backgroundImage : "url(https://media.istockphoto.com/id/475511846/vector/kitchen-seamless-pattern-vector-background.jpg?s=612x612&w=0&k=20&c=inpW5Mc2MFyuc7PsMXVY49OUBU39EXekcCNe8xVeI_k=)", minHeight: '100vh'}}>
+        <header>
+            <div className="container py-4">
+                <p className="display-2 text-center fw-bold" style={{color : "seagreen"}}>
+                    Browse Recipe
+                </p>
 
-                </div>
-            </header >
-            <div className='container mt-5 '>
-
-                <div className='row mt-5 p-5'> {displayProduct()} </div>
-
+                <input type="text" className="form-control w-75 m-auto" onChange={filterRecipe}/>
 
             </div>
-        </div >
-    )
+        </header>
+
+        <div>
+        <div className="container">
+            <div className="row">
+                {displayRecipeData()}
+            </div>
+        </div>
+    </div>
+    </div>
+  )
 }
 
 export default Browse
