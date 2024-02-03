@@ -72,7 +72,7 @@ router.put('/update/:id', (req,res) =>{
         res.status(500).json(err)
     });
 });
-router.post('/authenicate', (req, res) => {
+router.post('/authenticate', (req, res) => {
     Model.findOne(req.body)
         .then((result) => {
             if (result !== null)

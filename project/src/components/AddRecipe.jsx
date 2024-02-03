@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik';
+import {useNavigate} from "react-router"
 import Swal from "sweetalert2";
 
 const AddRecipe = () => {
-
+    const navigate = useNavigate();
     const [setImage, setSetImage] = useState('');
 
     const recipeForm = useFormik({
@@ -34,7 +35,7 @@ const AddRecipe = () => {
                 })
 
                 // Reset the form values after a successful submission
-                resetForm();
+                navigate('/Browse')
             } else if (res.status === 401) {
                 Swal.fire({
                     icon: 'error',
@@ -68,29 +69,23 @@ const AddRecipe = () => {
 
     return (
         <section
-            className="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark"
-            style={{
-                minHeight: "100vh",
-                backgroundSize: "cover",
-                backgroundImage:
-                    "url(https://img.freepik.com/free-vector/restaurant-mural-wallpaper_23-2148694555.jpg?w=2000)"
-            }}
-        >
+            className="recipe"
+            >
             <div className="container-fluid">
-                <div className="row justify-content-center align-items-center d-flex-row text-center h-100">
+                <div className=" recipe-card ">
                     <div className="col-12 col-md-4 col-lg-3 h-50 w-auto">
                         <div className="card shadow">
-                            <div className="card-body mx-auto w-100">
+                            <div className="recipe-card-body mx-auto w-100">
                                 <h4 className="card-title mt-1 mb-4 text-center fw-bold fs-2">Add Recipe</h4>
                                 <form className='' onSubmit={recipeForm.handleSubmit}>
                                     <div className="mb-3">
                                         <label htmlFor="title" className="form-label fw-bold fs-5">
-                                            Food Title
+                                            <h4 className='addrecipe-h4'>Food Title</h4>
                                         </label>
                                         <input
                                             placeholder='Recipe Name'
                                             type="text"
-                                            className="form-control w-100"
+                                            className="form-control"
                                             id="title"
                                             name='title' onChange={recipeForm.handleChange} value={recipeForm.values.title}
                                             required=""
@@ -98,12 +93,12 @@ const AddRecipe = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="category" className="form-label fw-bold fs-5">
-                                            Category
+                                        <h4 className='addrecipe-h4'>Category</h4>
                                         </label>
                                         <input
                                             placeholder='Veg - Non-Veg - Vegan'
                                             type="text"
-                                            className="form-control w-100"
+                                            className="form-control"
                                             id="title"
                                             name='category' onChange={recipeForm.handleChange} value={recipeForm.values.category}
                                             required=""
@@ -111,10 +106,10 @@ const AddRecipe = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="ingredients" className="form-label fw-bold fs-5">
-                                            Ingredients
+                                        <h4 className='addrecipe-h4'> Ingredients</h4>
                                         </label>
                                         <textarea
-                                            placeholder='Onions, Tomato and so on'
+                                            placeholder='Ingredients'
                                             className="form-control"
                                             id="ingredients"
                                             name="ingredients" onChange={recipeForm.handleChange} value={recipeForm.values.ingredients}
@@ -125,7 +120,7 @@ const AddRecipe = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="method" className="form-label fw-bold fs-5">
-                                            Method
+                                        <h4 className='addrecipe-h4'>Method</h4>
                                         </label>
                                         <textarea
                                             placeholder='Process...'
@@ -138,20 +133,20 @@ const AddRecipe = () => {
                                         />
                                     </div>
 
-                                    <div className="mb-3">
+                                    <div className="mb-4">
                                         <label htmlFor="title" className="form-label fw-bold fs-5">
-                                            Upload Photo
+                                        <h4 className='addrecipe-h4'> Upload Photo</h4>
                                         </label>
                                         <input
                                             type="file"
-                                            className="form-control w-100"
+                                            className=" upload form-control"
                                             id="image"
                                             name='image'
                                             onChange={uploadFile}
                                             required=""
                                         />
                                     </div>
-                                    <button type="submit" className="btn btn-dark">
+                                    <button type="submit" className="addrecipe-h4 btn btn-light">
                                         Submit
                                     </button>
                                 </form>

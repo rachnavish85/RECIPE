@@ -56,7 +56,7 @@ const Signup = () => {
   });
 
   return (
-    <>
+    <div className='signup'>
       {/* Section: Design Block */}
       <section className="text-center text-lg-start bg-tertiary">
         <style
@@ -66,25 +66,25 @@ const Signup = () => {
           }}
         />
         {/* Jumbotron */}
-        <div className="container py-4">
+        <div className=" signup-container py-4">
           <div className="row g-0 align-items-center">
             <div className="col-lg-6 mb-5 mb-lg-0">
               <div
-                className="card cascading-right"
+                className="signup-card cascading-right"
                 style={{
                   background: "hsla(0, 0%, 100%, 0.55)",
                   backdropFilter: "blur(30px)"
                 }}
               >
-                <div className="card-body p-5 shadow-5 text-center">
-                  <h2 className="fw-bold mb-5">Sign Up Now</h2>
+                <div className="signup-card-body p-5 shadow-5 text-center">
+                  <h2 className=" signup-now fw-bold mb-5 ">Sign Up Now</h2>
                   <form onSubmit={SignupForm.handleSubmit}>
                     {/* 2 column grid layout with text inputs for the first and last names */}
                     <div className="row">
                       <div className="col-md-6 mb-4">
                         <div className="form-outline">
                           <label className="form-label fw-bold" htmlFor="form3Example1">
-                            First name
+                            <h4 className='signup-h4'>First name</h4>
                           </label>
                           <input
                             type="text"
@@ -98,7 +98,7 @@ const Signup = () => {
                       <div className="col-md-6 mb-4">
                         <div className="form-outline">
                           <label className="form-label fw-bold" htmlFor="form3Example2">
-                            Last name
+                          <h4 className='signup-h4'>Last name</h4>
                           </label>
                           <input
                             type="text"
@@ -113,7 +113,7 @@ const Signup = () => {
                     {/* Email input */}
                     <div className="form-outline mb-4">
                       <label className="form-label fw-bold" htmlFor="form3Example3">
-                        Email address
+                      <h4 className='signup-h4'>Email address</h4>
                       </label>
                       <input
                         type="email"
@@ -126,7 +126,7 @@ const Signup = () => {
                     {/* Password input */}
                     <div className="form-outline mb-4 fw-bold">
                       <label className="form-label" htmlFor="form3Example4">
-                        Password
+                      <h4 className='signup-h4'>Password</h4>
                       </label>
                       <input
                         type="password"
@@ -143,26 +143,19 @@ const Signup = () => {
                       type="submit"
                       className="btn btn-primary btn-block mb-4"
                     >
-                      Sign up
+                    <h4 className='signup-h4'>Sign up</h4>
                     </button>
 
                   </form>
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 mb-5 mb-lg-0">
-              <img
-                src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"
-                className="w-100 rounded-4 shadow-4"
-                alt=""
-              />
             </div>
-          </div>
         </div>
         {/* Jumbotron */}
       </section>
       {/* Section: Design Block */}
-    </>
+    </div>
 
   )
 }

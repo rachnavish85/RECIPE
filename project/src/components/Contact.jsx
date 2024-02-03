@@ -5,10 +5,10 @@ const Contact = () => {
       <div className="contact-container">
         <div className="contact-card">
           <div className="left">
-            <img className='contact-img' src="" />
+            <img className='contact-img' src="public/my1.jpg" />
           </div>
           <div className="right">
-            <h2>Contact Us</h2>
+            <h1 className='contact-h1'>Contact Us</h1>
             <div className="contact">
               <div className="form-container">
                 <form className="form">

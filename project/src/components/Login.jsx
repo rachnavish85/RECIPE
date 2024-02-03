@@ -7,14 +7,9 @@ import { useNavigate, Link } from 'react-router-dom';
 const LoginSchema = Yup.object().shape({
   email: Yup.string().required("required"),
   password: Yup.string().required("required"),
-
 });
-
-
 const Login = () => {
   const navigate = useNavigate();
-
-
   const { setLoggedIn } = useUserContext();
 
   //initialization formik
@@ -42,7 +37,7 @@ const Login = () => {
             icon: 'success',
             title: 'Login Success',
           });
-          navigate('/home');
+          navigate('/');
 
           const data = await res.json();
           sessionStorage.setItem('user', JSON.stringify(data));
@@ -69,27 +64,26 @@ const Login = () => {
 
 
   return (
-    <section className="h-50 gradient-form" style={{ backgroundColor: "#eee" }}>
-      <div className="container py-5 h-50">
-        <div className="row d-flex justify-content-center align-items-center h-50">
-          <div className="col-xl-10">
-            <div className="card rounded-3 text-black">
-              <div className="row g-0">
-                <div className="col-lg-6">
-                  <div className="card-body p-md-5 mx-md-4">
-                    <div className="text-center">
+    <section className=" gradient-form" style={{ backgroundColor: "#eee" }}>
+      <div className=" py-5 ">
+        <div className="row d-flex justify-content-center align-items-center">
+          <div className=" col-10">
+            <div className="login-user card rounded-3 text-black">
+              <div className=" row">
+                <div className=" col-6">
+                  <div className=" p-md-5 mx-md-4">
+                    <div className=" text-center">
                       <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
                         style={{ width: 185 }}
                         alt="logo"
                       />
-                      <h4 className="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                      <h4 className="mt-1 mb-5 pb-1">We are the Navabi Tadka Team</h4>
                     </div>
                     <form onSubmit={loginForm.handleSubmit}
                       action="#"
                       method="post">
-                      <p>Please login to your account</p>
-
+                      
                       <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form2Example11">
                           Username
@@ -131,15 +125,8 @@ const Login = () => {
 
                       </div>
                       <div className="text-center pt-1 mb-5 pb-1">
-                        <Link to="http://localhost:5173/thank"><button
-                          className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                          type="button"
-                        >
-                          Log in
-                        </button></Link>
-                        <Link className="text-muted" to="/">
-                          Forgot password?
-                        </Link>
+                        <button type='submit' className='btn btn-danger fw-bold'>Login</button>
+                        
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2">Don't have an account?</p>
@@ -154,8 +141,8 @@ const Login = () => {
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                     <h1 className='welcome'>Welcome</h1>
                     <h1 className='to'> to</h1>
-                    <h1 className='khana'> Khana </h1>
-                    <h1 className='khajana'> Khajana...</h1>
+                    <h1 className='navabi'> Navabi </h1>
+                    <h1 className='tadka'> Tadka..</h1>
 
                   </div>
                 </div>
