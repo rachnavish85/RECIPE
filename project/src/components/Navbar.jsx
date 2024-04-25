@@ -40,14 +40,13 @@ const Navbars = () => {
     <div>
     <div className="navbar navbar-expand-lg  ">
         <div className="container">
-          <img className='logo' src='public/homeimg/logo.jpeg'/>
-
+          <h2>🍺🥂🍸 𝓝𝓪𝓿𝓪𝓫𝓲 𝓣𝓪𝓭𝓴𝓪 🍻🍷🍹</h2>
           <Link className="home" to="/">
            <h5 className='home'>Home</h5> 
           </Link>
 
           <Link className="home" to="browse">
-           <h5>Browse</h5> 
+           <h5>Recipe Menu </h5> 
           </Link>
 
          
@@ -55,10 +54,7 @@ const Navbars = () => {
            <h5>Login</h5> 
           </Link>
 
-          <Link className="home" to="contact">
-           <h5>Contact</h5> 
-          </Link>
-
+          
           <Link className="home" to="about">
            <h5>About</h5> 
           </Link>

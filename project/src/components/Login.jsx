@@ -128,6 +128,7 @@ const Login = () => {
                         <button type='submit' className='btn btn-danger fw-bold'>Login</button>
                         
                       </div>
+                      
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2">Don't have an account?</p>
                         <button type="button" className="btn btn-outline-danger">

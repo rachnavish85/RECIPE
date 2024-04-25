@@ -4,7 +4,6 @@ const port =5000;
 const cors = require('cors')
 
 const UserRouter = require('./router/UserRouter');
-const ContactRouter = require('./router/Contact')
 const RecipeRouter = require('./router/recipe')
 const UtilRouter = require('./router/Util')
 
@@ -14,7 +13,6 @@ app.use(cors({
 
 app.use(express.json());
 app.use('/user',UserRouter)
-app.use('/contact',ContactRouter)
 app.use('/recipe',RecipeRouter)
 app.use('/util',UtilRouter)
 
@@ -33,4 +31,4 @@ app.listen(port,()=>{console.log('server is running');
 // })
 
 
-// const mongoose =require('./connection')
+//  const mongoose =require('./connection')

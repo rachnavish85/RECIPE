@@ -20,8 +20,7 @@ const About = () => {
           Homemade food is hygienic.<br></br><br></br>
           Homemade food is prepared in clean surroundings with utmost care.
           We cannot be sure about the hygiene levels in the restaurant kitchens.
-          Eating more homemade food can reduce your risk of contracting foodborne illnesses.
-        </h3>
+         </h3>
       </div>
 
 {/*review-section*/}

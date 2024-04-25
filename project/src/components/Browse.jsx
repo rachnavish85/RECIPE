@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component'
-import Marquee from "react-fast-marquee";
 
 const Browse = () => {
   const ratingChanged = (newRating) => {
@@ -38,9 +37,9 @@ const Browse = () => {
       return <h1 className='text-center fw-bold' style={{ color: "seagreen" }}>No Data Found</h1>
     }
     return recipeList.map((recipe) => (
-      <div className=' browse-card col-md-3 mb-4'>
+      <div className=' browse-card col-md-3 mb-3'>
         <div className="browse-card">
-          <img src={'http://localhost:5000/' + recipe.image} alt="" className="card-img-top img-fluid" style={{ objectFit: "cover", height: 250 }} />
+          <img src={'http://localhost:5000/' + recipe.image} alt="" className="card-img-top img-fluid" style={{ objectFit: "cover", height: 240 }} />
           <div className="card-footer">
             <h4>{recipe.title}</h4>
             <p>{recipe.category}</p>
@@ -74,36 +73,7 @@ const Browse = () => {
           </div>
         </div>
       </div>
-      <div className='marquee'>
-        <section className="marquee1 p-5">
-          <div className="marque-container">
-            <div className="row">
-              <div className="col-12">
-                <Marquee className="p-2 slide">
-                  <div className="card mx-3">
-                    <img src='public/marque/m1.jpeg' alt="" className="marquee-img" />
-                  </div>
-                  <div className="card mx-3">
-                    <img src='public/marque/m2.jpeg' alt="" className="marquee-img" />
-                  </div>
-                  <div className="card mx-3">
-                    <img src='public/marque/m3.jpeg' alt="" className="marquee-img" />
-                  </div>
-                  <div className="card mx-3">
-                    <img src='public/marque/m4.jpeg' alt="" className="marquee-img" />
-                  </div>
-                  <div className="card mx-3">
-                    <img src='public/marque/m5.jpeg' alt="" className="marquee-img" />
-                  </div>
-                  <div >
-                    <img src='public/marque/m6.jpeg' alt="" className="marquee-img" />
-                  </div>
-                </Marquee>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+      
     </div>
   )
 }
